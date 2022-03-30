@@ -25,7 +25,7 @@ public class TCPConnection : MonoBehaviour
     private void Awake()
     {
         InitTCP();
-        InvokeRepeating("SendAgentsData", 10, 1);
+        InvokeRepeating("SendAgentsData", 10, 0.3f);
 
         Application.runInBackground = true;
     }

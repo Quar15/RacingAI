@@ -20,17 +20,18 @@ public class CheckpointCounter : MonoBehaviour
         if(other.gameObject.CompareTag("CheckPoint"))
         {            
             int nextCheckpointId = _checkpointCount % _checkpointManager.AllCheckpointsCount;
+            float speed = transform.GetComponent<Rigidbody2D>().velocity.magnitude;
 
             if(nextCheckpointId == other.GetComponent<Checkpoint>().ID)
             {
                 // Correct Checkpoint
-                _scoreManager.AddPoints(1f);
+                _scoreManager.AddPoints(1f * speed);
                 _checkpointCount++;
             }
             else
             {
                 // Wrong Checkpoint
-                _scoreManager.AddPoints(-1f);
+                _scoreManager.AddPoints(-1f * speed);
             }
         }
     }

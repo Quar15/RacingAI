@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
     {
         _rb = transform.GetComponent<Rigidbody2D>();
         ResetPoints();
-        InvokeRepeating("ControlSpeed", 10f, .5f);
+        InvokeRepeating("ControlSpeed", 10f, .3f);
     }
 
     public void ResetPoints()
@@ -42,28 +42,30 @@ public class ScoreManager : MonoBehaviour
 
         if(_speed <= 0.1)
         {
-            AddPoints(-0.1f);
+            AddPoints(-1.0f);
         }
         else
         {
-            float pointsToAdd = Mathf.Clamp(_speed*0.05f, 0f, 1f);
+            float pointsToAdd = Mathf.Clamp(_speed*0.25f, 0f, 5f);
             AddPoints(pointsToAdd);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
+        _speed = _rb.velocity.magnitude;
         if(other.collider.CompareTag("Wall"))
         {
-            AddPoints(-.5f);
+            AddPoints(-.5f * + _speed);
         }
     }
 
     private void OnCollisionStay2D(Collision2D other) 
     {
+        _speed = _rb.velocity.magnitude;
         if(other.collider.CompareTag("Wall"))
         {
-            AddPoints(-.1f);
+            AddPoints(-.1f * _speed);
         }
     }
 }

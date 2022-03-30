@@ -76,6 +76,9 @@ public class MyAgent : MonoBehaviour
         // Car position
         msg += Vector3ToString2D(transform.position) + " ";
 
+        // Car speed
+        msg += transform.GetComponent<Rigidbody2D>().velocity.magnitude.ToString("F4") + " ";
+
         // Checkpoint position and relative rotation to car
         Transform checkpointTransform = GetNextCheckpoint();
         Vector2 checkpointForward = checkpointTransform.transform.forward;
@@ -98,7 +101,7 @@ public class MyAgent : MonoBehaviour
         float forwardAmount = actions[0];
         float turnAmount = actions[1];
 
-        Debug.Log($"({forwardAmount}, {turnAmount})");
+        // Debug.Log($"({forwardAmount}, {turnAmount})");
 
         _topDownCarController.SetInputVector(new Vector2(forwardAmount, turnAmount));
 

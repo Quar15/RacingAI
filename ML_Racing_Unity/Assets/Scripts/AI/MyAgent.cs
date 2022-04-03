@@ -81,8 +81,8 @@ public class MyAgent : MonoBehaviour
 
         // Checkpoint position and relative rotation to car
         Transform checkpointTransform = GetNextCheckpoint();
-        Vector2 checkpointForward = checkpointTransform.transform.forward;
-        float dirDot = Vector2.Dot(transform.forward, checkpointForward);
+        Vector3 checkpointForward = checkpointTransform.transform.forward;
+        float dirDot = Vector3.Dot(transform.forward, checkpointForward);
 
         msg += Vector3ToString2D(checkpointTransform.position) + " ";
         msg += dirDot.ToString("F4") + " ";

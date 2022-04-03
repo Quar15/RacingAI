@@ -44,7 +44,7 @@ public class MyAgent : MonoBehaviour
     {
         if(_carStats != null)
         {
-            _carStats.UpdateText(generation, 0, _checkpointCounter.CheckpointCount, _scoreManager.Points);
+            _carStats.UpdateText(generation, _checkpointCounter.CheckpointCount, _scoreManager.Points);
         }
     }
 

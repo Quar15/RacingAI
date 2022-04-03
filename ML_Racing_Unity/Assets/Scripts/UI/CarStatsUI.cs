@@ -13,10 +13,10 @@ public class CarStatsUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateText(0, 0, 0, 0);
+        UpdateText(0, 0, 0);
     }
 
-    public void UpdateText(int gen, float time, int checkpoints, float score)
+    public void UpdateText(int gen, int checkpoints, float score)
     {
         if(!scoreText)
             return;
@@ -27,6 +27,6 @@ public class CarStatsUI : MonoBehaviour
         if(score > _bestScore)
             _bestScore = score;
 
-        scoreText.text = $"Gen: {gen}\nTime: {time}\nCheckpoints: {checkpoints}\nScore: {score}\nBestScore: {_bestScore}\nBest Checkpoints: {_bestCheckpoints}";
+        scoreText.text = $"Gen: {gen}\nBestScore: {_bestScore}\nBest Checkpoints: {_bestCheckpoints}";
     }
 }

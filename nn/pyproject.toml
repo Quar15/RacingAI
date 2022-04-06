@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "nn"
+version = "0.1.0"
+description = ""
+exclude = ["examples/*"]
+authors = [
+    "Mikołaj Rosowski <m.rosowski1@wp.pl>",
+    "Kacper Janas <test@test.test>",
+]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+numpy = "^1.22.3"
+jsonpickle = "^2.1.0"
+typing-extensions = "^4.1.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

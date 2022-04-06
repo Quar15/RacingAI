@@ -1,6 +1,5 @@
 import socket
 import sys
-import time
 
 import numpy as np
 
@@ -87,10 +86,9 @@ def handle_unity_data(data):
         if pool.generation % CHECKPOINT_INTERVAL == 0 and len(sys.argv) > 1:
             pool.to_file(f"gen{pool.generation}", sys.argv[1])
             print(f"Saved to {sys.argv[1]}/gen{pool.generation}")
-            
+
         prev_gen += 1
         first = False
-
 
     vert, hor = pool.forward(
         car_id,

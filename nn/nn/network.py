@@ -11,7 +11,6 @@ from typing_extensions import Self
 
 from nn.layers import BaseLayer, Dense
 from nn.layers.activators import ActivationLayer
-from nn.normalizators import softmax
 
 
 @dataclass()
@@ -21,7 +20,6 @@ class NeuralNetwork:
     input_count: int
 
     def __init__(self, layers: list[BaseLayer]) -> None:
-        # assert len(layers) >= 3, "At least 3 layers required"
         assert isinstance(layers[0], Dense), "First layer should be a dense layer"
 
         self.layers = layers

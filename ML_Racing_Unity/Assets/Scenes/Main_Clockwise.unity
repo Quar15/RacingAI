@@ -487,6 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef4c043d88a77745afb18ca0a193aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sendAllDataInitialDelay: 10
+  _sendAllDataInterval: 0.3
   _listenPort: 5066
   _listenIp: 127.0.0.1
   agents: []
@@ -699,6 +701,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1508544785}
     - target: {fileID: 3126241411512286737, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126241411512286737, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
       objectReference: {fileID: 1577272717}
@@ -706,6 +712,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241411764499813, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241411764499813, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -714,6 +724,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241411804782496, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241411804782496, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -722,6 +736,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241412378200410, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241412378200410, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -730,6 +748,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241412609181341, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241412609181341, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -738,6 +760,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241413266701268, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241413266701268, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -746,6 +772,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241413277215938, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241413277215938, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -754,6 +784,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241413369697766, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241413369697766, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -762,6 +796,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 3126241413373396899, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3126241413373396899, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 
@@ -770,6 +808,10 @@ PrefabInstance:
       propertyPath: _carStats
       value: 
       objectReference: {fileID: 1508544785}
+    - target: {fileID: 7433029182657447989, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
+      propertyPath: _maxSteps
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7433029182657447989, guid: bdd251ae66f18e047ac2dfcdbde5f595, type: 3}
       propertyPath: _tcpConnectionManager
       value: 

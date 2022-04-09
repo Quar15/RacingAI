@@ -15,6 +15,9 @@ public class TCPConnection : MonoBehaviour
     Thread receiveThread;
     TcpClient lClient;
     TcpListener listener;
+
+    [SerializeField] private float _sendAllDataInitialDelay = 10f;
+    [SerializeField] private float _sendAllDataInterval = 0.3f;
     [SerializeField] private int _listenPort = 5066;
     [SerializeField] private string _listenIp = "127.0.0.1";
 
@@ -25,7 +28,7 @@ public class TCPConnection : MonoBehaviour
     private void Awake()
     {
         InitTCP();
-        InvokeRepeating("SendAgentsData", 10, 0.3f);
+        InvokeRepeating("SendAgentsData", _sendAllDataInitialDelay, _sendAllDataInterval);
 
         Application.runInBackground = true;
     }

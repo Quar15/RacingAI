@@ -108,12 +108,12 @@ public class TopDownCarController : MonoBehaviour
         _steeringInput = inputVector.y;
     }
 
-    public void ResetEngine()
+    public void ResetEngine(float startingPointRotation = 0.0f)
     {
         SetInputVector(Vector2.zero);
         _carRB.velocity = Vector2.zero;
         _carRB.angularVelocity = 0f;
-        _rotationAngle = 0;
+        _rotationAngle = startingPointRotation;
         _velocityVsUp = 0;
     }
 }

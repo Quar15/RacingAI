@@ -5,6 +5,7 @@ using UnityEngine;
 public class MyAgent : MonoBehaviour
 {
     [SerializeField] private int _maxSteps = 1200;
+    [SerializeField] private bool _randomStartPosition = true;
     private int _steps;
 
     [Header("References")]
@@ -92,8 +93,6 @@ public class MyAgent : MonoBehaviour
         // Debug.Log(msg);
 
         _tcpConnectionManager.SendMessageTCP(msg);
-
-        UpdateCarStats();
     }
 
     public void OnActionReceived(float[] actions)
@@ -110,10 +109,15 @@ public class MyAgent : MonoBehaviour
 
     public void EndEpisode()
     {
-        _topDownCarController.ResetEngine();
+        _topDownCarController.ResetEngine(_spawnTransform.rotation.eulerAngles.z);
 
-        transform.position = _spawnTransform.position + new Vector3(Random.Range(-1.0f, +1.0f), 0, 0);
-        transform.rotation = _spawnTransform.rotation;
+        transform.position = _spawnTransform.position;
+        if(_randomStartPosition)
+            transform.position += new Vector3(Random.Range(-1.0f, +1.0f), Random.Range(-1.0f, +1.0f), 0);
+
+        //transform.rotation = _spawnTransform.rotation;
+
+        // Debug.Log($"Spawn Rotation: {_spawnTransform.rotation.eulerAngles} | Car Rotation: {transform.rotation.eulerAngles}");
 
         _scoreManager.ResetPoints();
         _checkpointCounter.ResetCheckpoints();
@@ -121,6 +125,6 @@ public class MyAgent : MonoBehaviour
         _steps = 0;
         generation++;
 
-        UpdateCarStats();
+        UpdateCarStats();        
     }
 }

@@ -34,7 +34,7 @@ else:
         ],
     )
 fitnesses = [-1000.0] * POPULATION_COUNT
-prev_gen = 0
+prev_gen = 1
 first = True
 
 
@@ -81,15 +81,15 @@ def handle_unity_data(data):
 
     if gen > prev_gen and not first:
         # print(f"{fitnesses=}")
-        pool.next_generation(MUTATION_RATE, PERTURBING_RATE, fitnesses, 1)
-        print(f"Gen {prev_gen} stats:\nBest score: {pool.best_score}")
-
         if pool.generation % CHECKPOINT_INTERVAL == 0 and len(sys.argv) > 1:
             pool.to_file(f"gen{pool.generation}", sys.argv[1])
             print(f"Saved to {sys.argv[1]}/gen{pool.generation}")
 
+        pool.next_generation(MUTATION_RATE, PERTURBING_RATE, fitnesses, 1)
+        print(f"Gen {pool.generation} stats:\nBest score: {pool.best_score}")
+
         prev_gen += 1
-    
+
     first = False
 
     vert, hor = pool.forward(

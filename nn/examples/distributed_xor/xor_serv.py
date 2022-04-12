@@ -39,9 +39,9 @@ def user_tests(manager: ServerManager):
         i1 = float(input("First input [0.0 - 1.0]\n"))
         i2 = float(input("Second input [0.0 - 1.0]\n"))
 
-        output = manager.forward(np.reshape([i1, i2], (2, 1)))
+        output = manager.forward(np.reshape([i1, i2], (2, 1)))[0][0]
 
-        print(f"Result: {output}")
+        print(f"Result: {round(output)} ({output})")
 
 
 def parse_args() -> argparse.Namespace:
@@ -96,7 +96,7 @@ def main():
         ("127.0.0.1", args.port),
         bytes(args.authkey, "utf8"),
         client_count=args.workers,
-        layers_per_cilent=args.layers,
+        layers_per_client=args.layers,
     )
     input("Press Enter to continue...")
 

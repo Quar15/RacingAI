@@ -43,20 +43,20 @@ class ServerManager:
         authkey: bytes | None,
         *,
         client_count: int = None,
-        layers_per_cilent: int = None,
+        layers_per_client: int = None,
     ):
-        if client_count is None and layers_per_cilent is None:
+        if client_count is None and layers_per_client is None:
             raise TypeError(
                 "Missing argument: either 'client_count' or 'layers_per_client' is required"
             )
 
         if client_count is not None:
-            layers_per_cilent = 2 if layers_per_cilent is None else layers_per_cilent
+            layers_per_client = ceil(len(network) / client_count)
         else:
-            client_count = ceil(len(network) / layers_per_cilent)
+            client_count = ceil(len(network) / layers_per_client)
 
         self.network = network
-        self.chunks = chunk(self.network, layers_per_cilent)
+        self.chunks = chunk(self.network, layers_per_client)
 
         self.listener = Listener(address, authkey=authkey)
         self.clients: list[Connection] = list()

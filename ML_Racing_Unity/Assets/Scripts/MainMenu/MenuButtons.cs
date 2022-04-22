@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class MenuButtons : MonoBehaviour
 {
     [SerializeField] private GameObject _learnPanel;
+    [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _creditsPanel;
-
+    
     private void LoadLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
@@ -58,6 +59,16 @@ public class MenuButtons : MonoBehaviour
     public void CloseCredits()
     {
         _creditsPanel.SetActive(false);
+    }
+
+    public void OpenOptions()
+    {
+        _optionsPanel.SetActive(true);
+    }
+
+    public void CloseOptions()
+    {
+        _optionsPanel.SetActive(false);
     }
 
     public void Quit()

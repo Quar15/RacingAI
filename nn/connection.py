@@ -46,7 +46,7 @@ def listen_for_unity(s, handler: Callable[[str], Any]):
         try:
             msg = s.recv(16)
         except TimeoutError:
-            pass
+            continue
 
         if msg == b"":
             continue
@@ -82,7 +82,7 @@ class Message:
     score: float
 
     @staticmethod
-    def parse_message(self, data: str) -> Optional["Message"]:
+    def parse_message(data: str) -> Optional["Message"]:
         """Tries to parse raw data received from Unity connection. Returns `Message` on success, otherwise returns `None`"""
         try:
             data = data.split("#")[1]

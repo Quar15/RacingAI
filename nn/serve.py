@@ -1,6 +1,7 @@
 import argparse
 from dataclasses import dataclass
 from enum import Enum, auto
+from socket import socket
 from typing import Any
 
 from connection import Message, init_TCP, listen_for_unity
@@ -52,19 +53,18 @@ def parse_args() -> argparse.Namespace:
         "--load",
         metavar="PATH",
         help="load previously saved network",
-        type=argparse.FileType("r"),
+        type=str,
     )
 
     return parser.parse_args()
 
 
-@dataclass()
 class Mode(Enum):
     """All possible modes the `Manager` can be in."""
 
     INIT = auto()
     LEARNING = "learning"
-    PRESENTATION = "PRESENTATION"
+    PRESENTATION = "presentation"
     # PAUSED = auto()
 
 
@@ -140,9 +140,9 @@ class Manager:
 
         return self.handle_presentation(message)
 
-    def handle_presentation(self, message: Message, only_best: bool = False) -> Any:
+    def handle_presentation(self, message: Message, *, only_best: bool = False) -> Any:
         """Main handler for presentation `Mode`"""
-        if self.mode != Mode.LEARNING:
+        if self.mode != Mode.PRESENTATION:
             print(f"@WARNING: Expected mode to be {Mode.PRESENTATION}, got {self.mode}")
 
         inputs = [
@@ -161,7 +161,7 @@ class Manager:
 
         self.fitness[message.car_id] = message.score
 
-        return (message.gen, message.car_id, vert, hor)
+        return (message.generation, message.car_id, vert, hor)
 
     def mode_switch(self, data: str) -> Any:
         """Main `Manager` handler, dispatching responses based on current `Mode`"""
@@ -173,15 +173,16 @@ class Manager:
             case Mode.LEARNING:
                 return self.handle_learning(message)
             case Mode.PRESENTATION:
-                return self.handle_presentation(message)
+                return self.handle_presentation(message, only_best=True)
 
     def start_manager(self):
         """Main manager loop"""
         try:
-            listen_for_unity(self.socket, self.mode_switch())
+            listen_for_unity(self.socket, self.mode_switch)
         except KeyboardInterrupt:
             print("@INFO: Received Ctrl-C")
 
+            print(self.mode, Mode.LEARNING, self.mode == Mode.LEARNING)
             if self.mode == Mode.LEARNING:
                 self.checkpoint()
 

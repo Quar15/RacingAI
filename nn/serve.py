@@ -1,18 +1,13 @@
 import argparse
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Any, Optional
-from socket import socket
+from typing import Any
 
-import numpy as np
-from connection import init_TCP, listen_for_unity, Message
-
-from nn.genetic import NetworkPool, BestPicker
+from connection import Message, init_TCP, listen_for_unity
+from nn.genetic import BestPicker, NetworkPool
 from nn.layers import Dense, Tanh
-
 from nn.network import NeuralNetwork
 
-# np.set_printoptions(15)
 MUTATION_RATE = 0.5
 PERTURBING_RATE = 0.9
 POPULATION_COUNT = 10

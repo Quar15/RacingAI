@@ -1,9 +1,8 @@
-from dataclasses import dataclass
 import socket
+from dataclasses import dataclass
 from typing import Any, Callable, Optional
 
 import numpy as np
-
 
 UNITY_IP = "127.0.0.1"
 UNITY_PORT = 5066
@@ -15,7 +14,7 @@ def init_TCP(*, address=UNITY_IP, port=UNITY_PORT) -> socket.socket:
     address = (UNITY_IP, UNITY_PORT)
     # address = ('192.168.0.107', port)
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(10.5)
+    s.settimeout(0.5)
     # # print(socket.gethostbyname(socket.gethostname()))
     s.connect(address)
     return s

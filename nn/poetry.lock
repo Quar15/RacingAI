@@ -1,4 +1,12 @@
 [[package]]
+name = "altgraph"
+version = "0.17.2"
+description = "Python graph (network) package"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "black"
 version = "22.3.0"
 description = "The uncompromising code formatter."
@@ -39,6 +47,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "future"
+version = "0.18.2"
+description = "Clean single-source support for Python 3 and 2"
+category = "dev"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
 name = "jsonpickle"
 version = "2.1.0"
 description = "Python library for serializing any arbitrary object graph into JSON"
@@ -50,6 +66,17 @@ python-versions = ">=2.7"
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-black-multipy", "pytest-cov", "ecdsa", "feedparser", "numpy", "pandas", "pymongo", "scikit-learn", "sqlalchemy", "enum34", "jsonlib"]
 "testing.libs" = ["demjson", "simplejson", "ujson", "yajl"]
+
+[[package]]
+name = "macholib"
+version = "1.16"
+description = "Mach-O header analysis and editing"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+altgraph = ">=0.15"
 
 [[package]]
 name = "mypy-extensions"
@@ -76,6 +103,17 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [[package]]
+name = "pefile"
+version = "2021.9.3"
+description = "Python PE parsing module"
+category = "dev"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+future = "*"
+
+[[package]]
 name = "platformdirs"
 version = "2.5.1"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -86,6 +124,41 @@ python-versions = ">=3.7"
 [package.extras]
 docs = ["Sphinx (>=4)", "furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-autodoc-typehints (>=1.12)"]
 test = ["appdirs (==1.4.4)", "pytest (>=6)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)"]
+
+[[package]]
+name = "pyinstaller"
+version = "5.0.1"
+description = "PyInstaller bundles a Python application and all its dependencies into a single package."
+category = "dev"
+optional = false
+python-versions = "<3.11,>=3.7"
+
+[package.dependencies]
+altgraph = "*"
+macholib = {version = ">=1.8", markers = "sys_platform == \"darwin\""}
+pefile = {version = ">=2017.8.1", markers = "sys_platform == \"win32\""}
+pyinstaller-hooks-contrib = ">=2020.6"
+pywin32-ctypes = {version = ">=0.2.0", markers = "sys_platform == \"win32\""}
+
+[package.extras]
+encryption = ["tinyaes (>=1.0.0)"]
+hook_testing = ["pytest (>=2.7.3)", "execnet (>=1.5.0)", "psutil"]
+
+[[package]]
+name = "pyinstaller-hooks-contrib"
+version = "2022.4"
+description = "Community maintained hooks for PyInstaller"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
+name = "pywin32-ctypes"
+version = "0.2.0"
+description = ""
+category = "dev"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "tomli"
@@ -106,9 +179,13 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.10"
-content-hash = "1b12d69240ef13c03e882fb262eb38b9ef7ba7495dd60471d996097cbdb8bf21"
+content-hash = "109b0174c5462a470908c8ccf8dfe615dd9407e5319698d1d509299971a07981"
 
 [metadata.files]
+altgraph = [
+    {file = "altgraph-0.17.2-py2.py3-none-any.whl", hash = "sha256:743628f2ac6a7c26f5d9223c91ed8ecbba535f506f4b6f558885a8a56a105857"},
+    {file = "altgraph-0.17.2.tar.gz", hash = "sha256:ebf2269361b47d97b3b88e696439f6e4cbc607c17c51feb1754f90fb79839158"},
+]
 black = [
     {file = "black-22.3.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:2497f9c2386572e28921fa8bec7be3e51de6801f7459dffd6e62492531c47e09"},
     {file = "black-22.3.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:5795a0375eb87bfe902e80e0c8cfaedf8af4d49694d69161e5bd3206c18618bb"},
@@ -142,9 +219,16 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
+future = [
+    {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
+]
 jsonpickle = [
     {file = "jsonpickle-2.1.0-py2.py3-none-any.whl", hash = "sha256:1dee77ddc5d652dfdabc33d33cff9d7e131d428007007da4fd6f7071ae774b0f"},
     {file = "jsonpickle-2.1.0.tar.gz", hash = "sha256:84684cfc5338a534173c8dd69809e40f2865d0be1f8a2b7af8465e5b968dcfa9"},
+]
+macholib = [
+    {file = "macholib-1.16-py2.py3-none-any.whl", hash = "sha256:5a0742b587e6e57bfade1ab90651d4877185bf66fd4a176a488116de36878229"},
+    {file = "macholib-1.16.tar.gz", hash = "sha256:001bf281279b986a66d7821790d734e61150d52f40c080899df8fefae056e9f7"},
 ]
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
@@ -155,6 +239,7 @@ numpy = [
     {file = "numpy-1.22.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:8251ed96f38b47b4295b1ae51631de7ffa8260b5b087808ef09a39a9d66c97ab"},
     {file = "numpy-1.22.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:48a3aecd3b997bf452a2dedb11f4e79bc5bfd21a1d4cc760e703c31d57c84b3e"},
     {file = "numpy-1.22.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a3bae1a2ed00e90b3ba5f7bd0a7c7999b55d609e0c54ceb2b076a25e345fa9f4"},
+    {file = "numpy-1.22.3-cp310-cp310-win32.whl", hash = "sha256:f950f8845b480cffe522913d35567e29dd381b0dc7e4ce6a4a9f9156417d2430"},
     {file = "numpy-1.22.3-cp310-cp310-win_amd64.whl", hash = "sha256:08d9b008d0156c70dc392bb3ab3abb6e7a711383c3247b410b39962263576cd4"},
     {file = "numpy-1.22.3-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:201b4d0552831f7250a08d3b38de0d989d6f6e4658b709a02a73c524ccc6ffce"},
     {file = "numpy-1.22.3-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:f8c1f39caad2c896bc0018f699882b345b2a63708008be29b1f355ebf6f933fe"},
@@ -175,9 +260,33 @@ pathspec = [
     {file = "pathspec-0.9.0-py2.py3-none-any.whl", hash = "sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a"},
     {file = "pathspec-0.9.0.tar.gz", hash = "sha256:e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1"},
 ]
+pefile = [
+    {file = "pefile-2021.9.3.tar.gz", hash = "sha256:344a49e40a94e10849f0fe34dddc80f773a12b40675bf2f7be4b8be578bdd94a"},
+]
 platformdirs = [
     {file = "platformdirs-2.5.1-py3-none-any.whl", hash = "sha256:bcae7cab893c2d310a711b70b24efb93334febe65f8de776ee320b517471e227"},
     {file = "platformdirs-2.5.1.tar.gz", hash = "sha256:7535e70dfa32e84d4b34996ea99c5e432fa29a708d0f4e394bbcb2a8faa4f16d"},
+]
+pyinstaller = [
+    {file = "pyinstaller-5.0.1-py3-none-macosx_10_13_universal2.whl", hash = "sha256:0dc19ccf97584fff1766dcaf9c0425e4cd714ccc41c9f4d1222cab8c756624e4"},
+    {file = "pyinstaller-5.0.1-py3-none-manylinux2014_aarch64.whl", hash = "sha256:100ba42f5885e1044e45a9a1d6fa9bb17be49d8731a34ebde39519a49095d509"},
+    {file = "pyinstaller-5.0.1-py3-none-manylinux2014_i686.whl", hash = "sha256:943d22969ad7487ff430810e733f06e6efddc1af1cbe6453ec44dffc39f3a1f5"},
+    {file = "pyinstaller-5.0.1-py3-none-manylinux2014_ppc64le.whl", hash = "sha256:7b4fa281373676728e503447e5eb2a101208d0d41be62b540dcfbe073e26e60f"},
+    {file = "pyinstaller-5.0.1-py3-none-manylinux2014_s390x.whl", hash = "sha256:a7698ca54b1afc5ff0ef0a881fa68a878e3f12e7f1a3bade9bf198af34d15222"},
+    {file = "pyinstaller-5.0.1-py3-none-manylinux2014_x86_64.whl", hash = "sha256:d8384871a2e6605b49ef3293aa8b365bbdfe9aac6ff80e3743e5fe4cbd46fa62"},
+    {file = "pyinstaller-5.0.1-py3-none-musllinux_1_1_aarch64.whl", hash = "sha256:d3a587f5adb28e299781d99d6e781e3d240f6f5ecaad5b5f484ea196801476f6"},
+    {file = "pyinstaller-5.0.1-py3-none-musllinux_1_1_x86_64.whl", hash = "sha256:219e249c2bbd2ec77ba008adbc46832ddd761554167bf5f9c86e861f8ddd4589"},
+    {file = "pyinstaller-5.0.1-py3-none-win32.whl", hash = "sha256:3ac6f8bfe65666650bf37671d6661775692b33711a7c5e664ac5bb577100f120"},
+    {file = "pyinstaller-5.0.1-py3-none-win_amd64.whl", hash = "sha256:bf6148a6eb005e1106d57271681cd7799b56f7b41efa6c78ce4d375fc1cd829e"},
+    {file = "pyinstaller-5.0.1.tar.gz", hash = "sha256:25f5f758b005c66471af0d452c90ec328179116afe9d5bd82f5fb06d9416267b"},
+]
+pyinstaller-hooks-contrib = [
+    {file = "pyinstaller-hooks-contrib-2022.4.tar.gz", hash = "sha256:b7f7da20e5b83c22219a21b8f849525e5f735197975313208f4e07ff9549cdaf"},
+    {file = "pyinstaller_hooks_contrib-2022.4-py2.py3-none-any.whl", hash = "sha256:b57a90bb8520d6e1dbbaaae416875e28fa5a3b74d2e40e330d02d1ccadacc38c"},
+]
+pywin32-ctypes = [
+    {file = "pywin32-ctypes-0.2.0.tar.gz", hash = "sha256:24ffc3b341d457d48e8922352130cf2644024a4ff09762a2261fd34c36ee5942"},
+    {file = "pywin32_ctypes-0.2.0-py2.py3-none-any.whl", hash = "sha256:9dc2d991b3479cc2df15930958b674a48a227d5361d413827a4cfd0b5876fc98"},
 ]
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},

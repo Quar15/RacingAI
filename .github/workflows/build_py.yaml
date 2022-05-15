@@ -9,11 +9,7 @@ on:
         default: test
   push:
     tags:
-      - "v*"
-
-defaults:
-  run:
-    working-directory: nn
+      - v+([0-9]).+([0-9]).+([0-9])?(-+([0-9A-Za-z-])*(.+([0-9A-Za-z-])))?(\++([0-9A-Za-z-])*(.+([0-9A-Za-z-])))
 
 jobs:
   # Build for every OS
@@ -45,38 +41,45 @@ jobs:
       - name: Setup | Poetry
         uses: abatilo/actions-poetry@v2.0.0
 
+      - name: Setup | Set Cache Target
+        id: poetry_cfg
+        run: |
+          echo "::set-output name=poetry_cache::$(poetry config cache-dir)"
+          echo "::set-output name=venv_cache::$(poetry config virtualenvs.path)"
+
       - name: Setup | Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
+        id: cache
         with:
           path: |
-            ~/.cache/poetry
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+            ${{ steps.poetry_cfg.outputs.poetry_cache }}
+            ${{ steps.poetry_cfg.outputs.venv_cache }}
+          key: ${{ runner.os }}-poetry-${{ steps.poetry_cfg.outputs.poetry_cache }}-${{ steps.poetry_cfg.outputs.venv_cache }}-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Setup | Install packages
+      - name: Setup | Install Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: nn
         run: poetry install
 
       - name: Build | Build
-        run: poetry run pyinstaller --onefile --name pyserve --distpath ../dist ./serve.py
+        working-directory: nn
+        run: poetry run pyinstaller --onefile --name pyserve ./serve.py
 
       - name: Post Build | Prepare Artifacts [Windows]
         if: matrix.os == 'windows-latest'
-        run: |
-          cd ../dist
-          7z a ../${{ matrix.artifact }} pyserve.exe
-          cd -
+        working-directory: nn/dist
+        run: 7z a ../../${{ matrix.artifact }} pyserve.exe
 
       - name: Post Build | Prepare Artifacts [-nix]
         if: matrix.os != 'windows-latest'
-        run: |
-          cd ../dist
-          tar czvf ../${{ matrix.artifact }} pyserve
-          cd -
+        working-directory: nn/dist
+        run: tar czvf ../../${{ matrix.artifact }} pyserve
 
       - name: Post Build | Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.artifact }}
-          path: "**/${{ matrix.artifact }}"
+          path: ${{ matrix.artifact }}
 
   # Create GitHub Release
   github_release:
@@ -84,20 +87,15 @@ jobs:
     needs: github_build
     runs-on: ubuntu-latest
     steps:
-      - name: Setup | Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Setup | Set Release Tag [Dispatch]
         if: github.event_name == 'workflow_dispatch'
         run: echo "TAG_NAME=${{ github.event.inputs.tag_name }}" >> $GITHUB_ENV
 
       - name: Setup | Fetch Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
 
       - name: Setup | Checksums
-        run: for file in pyserve-*; do openssl dgst -sha256 -r "$file" | awk '{print $1}' > "${file}.sha256"; done
+        run: for file in pyserve-*/pyserve-*; do openssl dgst -sha256 -r "$file" | awk '{print $1}' > "${file}.sha256"; done
 
       - name: Build | Publish
         uses: softprops/action-gh-release@v1
@@ -105,4 +103,4 @@ jobs:
           fail_on_unmatched_files: true
           generate_release_notes: false
           tag_name: ${{ env.TAG_NAME }}
-          files: "**/pyserve-*"
+          files: pyserve-*/pyserve-*

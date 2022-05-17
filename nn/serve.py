@@ -8,6 +8,7 @@ from connection import Message, init_TCP, listen_for_unity
 from nn.genetic import BestPicker, NetworkPool
 from nn.layers import Dense, Tanh
 from nn.network import NeuralNetwork
+from nn.stats import Stats
 
 MUTATION_RATE = 0.5
 INTENSE_CROSS_RATE = 0.1
@@ -79,6 +80,7 @@ class Manager:
     fitness: list[float]
     save_interval: int
     save_directory: str
+    stats: Stats
     mode: Mode = Mode.INIT
     current_gen: int = 0
 
@@ -87,6 +89,7 @@ class Manager:
 
         if args.load is not None:
             self.pool = NetworkPool.from_file(args.load, POPULATION_COUNT, BestPicker())
+            self.stats = Stats(self.pool.best_network)
             self.fitness = self.pool.picker.fitnesses[:]
 
             while len(self.fitness) < POPULATION_COUNT:
@@ -104,6 +107,7 @@ class Manager:
                 ],
             )
             self.fitness = [-1000] * POPULATION_COUNT
+            self.stats = Stats()
 
         self.save_interval = args.save_interval
         self.save_directory = args.save
@@ -136,6 +140,7 @@ class Manager:
                 and self.pool.generation % self.save_interval == 0
             ):
                 self.checkpoint()
+                print(self.stats.summary(self.pool.best_network))
 
             self.pool.next_generation(
                 MUTATION_RATE, PERTURBING_RATE, INTENSE_CROSS_RATE, self.fitness, 2

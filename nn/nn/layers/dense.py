@@ -43,24 +43,18 @@ class Dense(BaseLayer):
         crossed_layer = Dense(input_size, neuron_count)
 
         for idx in np.ndindex(crossed_layer.weights.shape):
-            r = np.random.random()
-            if r < 0.33:
-                crossed_layer.weights[idx] = (
-                    self.weights[idx] + other.weights[idx]
-                ) / 2
-            elif r < 0.66:
-                crossed_layer.weights[idx] = self.weights[idx]
-            else:
-                crossed_layer.weights[idx] = other.weights[idx]
+            crossed_layer.weights[idx] = np.random.choice(
+                [self.weights[idx], other.weights[idx]]
+            )
+                # if np.random.random() < 0.5:
+                #     crossed_layer.weights[idx] = self.weights[idx]
+                # else:
+                #     crossed_layer.weights[idx] = other.weights[idx]
 
         for idx in np.ndindex(crossed_layer.biases.shape):
-            r = np.random.random()
-            if r < 0.33:
-                crossed_layer.biases[idx] = (self.biases[idx] + other.biases[idx]) / 2
-            elif r < 0.66:
-                crossed_layer.biases[idx] = self.biases[idx]
-            else:
-                crossed_layer.biases[idx] = other.biases[idx]
+            crossed_layer.biases[idx] = np.random.choice(
+                [self.biases[idx], other.biases[idx]]
+            )
 
         return crossed_layer
 

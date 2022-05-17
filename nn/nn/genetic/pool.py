@@ -61,6 +61,7 @@ class NetworkPool:
         self,
         mutation_rate: float,
         perturbing_rate: float,
+        intense_cross_rate: float,
         fitness: list[float],
         keep_best: int = 1,
     ):
@@ -75,14 +76,13 @@ class NetworkPool:
         self.best_score = self.picker.fitnesses[0]
 
         while len(new_networks) < len(self.networks):
-            crossed = self.best_network.copy()
             p1, p2 = self.picker.pick()
-            crossed = p1.cross_with(p2)
+            crossed = p1.cross_with(p2, intense_cross_rate)
 
-            if self.picker.fitnesses[1] > 0:
-                crossed = p1.cross_with(p2)
-            else:
-                crossed = p1.copy()
+            # if self.picker.fitnesses[1] > 0:
+            #     crossed = p1.cross_with(p2, intense_cross_rate)
+            # else:
+            #     crossed = p1.copy()
 
             if np.random.random() < mutation_rate:
                 crossed.mutate_network(perturbing_rate)
@@ -121,6 +121,8 @@ class NetworkPool:
             if Path(file).suffix == ".ntw":
                 return NetworkPool.from_model(decoded, pool_size, picker)
 
+            while len(decoded.networks) < pool_size:
+                decoded.networks.append(decoded.best_network.copy())
             return decoded
 
     def to_file(

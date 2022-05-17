@@ -10,6 +10,7 @@ from nn.layers import Dense, Tanh
 from nn.network import NeuralNetwork
 
 MUTATION_RATE = 0.5
+INTENSE_CROSS_RATE = 0.1
 PERTURBING_RATE = 0.9
 POPULATION_COUNT = 10
 
@@ -87,6 +88,10 @@ class Manager:
         if args.load is not None:
             self.pool = NetworkPool.from_file(args.load, POPULATION_COUNT, BestPicker())
             self.fitness = self.pool.picker.fitnesses[:]
+
+            while len(self.fitness) < POPULATION_COUNT:
+                self.fitness.append(0.0)
+
         else:
             self.pool = NetworkPool(
                 POPULATION_COUNT,
@@ -108,7 +113,7 @@ class Manager:
 
     def set_mode(self, mode: Mode):
         """Switches manager to provided mode"""
-        print(f"@DEBUG: Setting mode to {mode}")
+        print(f"@INFO: Setting mode to {mode}")
         self.mode = mode
 
     def checkpoint(self) -> bool:
@@ -118,12 +123,12 @@ class Manager:
             directory=self.save_directory,
             create_parents=True,
         )
-        print(f"@DEBUG: Saved gen {self.pool.generation} at {self.save_directory}")
+        print(f"@INFO: Saved gen {self.pool.generation} at {self.save_directory}")
 
     def handle_learning(self, message: Message) -> Any:
         """Main handler for learning `Mode`"""
         if self.mode != Mode.LEARNING:
-            print(f"@WARNING: Expected mode to be {Mode.LEARNING}, got {self.mode}")
+            print(f"@ERROR: Expected mode to be {Mode.LEARNING}, got {self.mode}")
 
         if message.generation > self.current_gen:
             if (
@@ -132,18 +137,20 @@ class Manager:
             ):
                 self.checkpoint()
 
-            self.pool.next_generation(MUTATION_RATE, PERTURBING_RATE, self.fitness, 2)
+            self.pool.next_generation(
+                MUTATION_RATE, PERTURBING_RATE, INTENSE_CROSS_RATE, self.fitness, 2
+            )
             self.current_gen += 1
             print(
-                f"@INFO: Generation {self.pool.generation - 1} stats:\nBest score: {self.pool.best_score}"
+                f"@INFO: Generation {self.pool.generation - 1} best score: {self.pool.best_score}"
             )
 
         return self.handle_presentation(message)
 
     def handle_presentation(self, message: Message, *, only_best: bool = False) -> Any:
         """Main handler for presentation `Mode`"""
-        if self.mode != Mode.PRESENTATION:
-            print(f"@WARNING: Expected mode to be {Mode.PRESENTATION}, got {self.mode}")
+        if self.mode != Mode.PRESENTATION and only_best:
+            print(f"@ERROR: Expected mode to be {Mode.PRESENTATION}, got {self.mode}")
 
         inputs = [
             message.sensor_data[0],
@@ -182,11 +189,11 @@ class Manager:
         except KeyboardInterrupt:
             print("@INFO: Received Ctrl-C")
 
-            print(self.mode, Mode.LEARNING, self.mode == Mode.LEARNING)
+            print("@DEBUG:", self.mode, Mode.LEARNING, self.mode == Mode.LEARNING)
             if self.mode == Mode.LEARNING:
                 self.checkpoint()
 
-            print("@INFO: Shutting down")
+            print("@DEBUG: Shutting down")
             exit(0)
 
 

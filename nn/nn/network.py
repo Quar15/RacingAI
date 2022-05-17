@@ -59,10 +59,12 @@ class NeuralNetwork:
         for layer in reversed(self.layers):
             input_error = layer.backward(input_error, learning_rate)
 
-    def cross_with(self, other: Self) -> Self:
+    def cross_with(self, other: Self, intense_cross_rate: float) -> Self:
         return NeuralNetwork(
             [
                 np.random.choice([l1.copy(), l2.copy()])
+                if np.random.random() > intense_cross_rate
+                else l1.cross_with(l2)
                 for l1, l2 in zip(self.layers, other.layers)
             ]
         )

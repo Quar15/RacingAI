@@ -13,14 +13,12 @@ class Picker:
 
     def set_pool(self, fitness: list[float], networks: list[NeuralNetwork]):
         self.clear()
+
         for fit, network in sorted(
-            (zip(fitness, networks)), key=lambda x: x[0], reverse=True
+            zip(fitness, networks), key=lambda x: x[0], reverse=True
         ):
             self.fitnesses.append(fit)
             self.pool.append(network)
-
-        self.fitnesses = self.fitnesses[: len(self.fitnesses) // 2]
-        self.pool = self.pool[: len(self.pool) // 2]
 
     def clear(self):
         self.fitnesses.clear()

@@ -16,6 +16,8 @@ public class TCPConnection : MonoBehaviour
     TcpClient lClient;
     TcpListener listener;
 
+    [SerializeField] private PythonManager _pythonManager;
+
     [SerializeField] private float _sendAllDataInitialDelay = 10f;
     [SerializeField] private float _sendAllDataInterval = 0.3f;
     [SerializeField] private int _listenPort = 5066;
@@ -27,6 +29,7 @@ public class TCPConnection : MonoBehaviour
 
     private void Awake()
     {
+        _pythonManager.StartPythonExec();
         InitTCP();
         InvokeRepeating("SendAgentsData", _sendAllDataInitialDelay, _sendAllDataInterval);
 

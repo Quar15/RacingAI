@@ -28,6 +28,11 @@ public class MyAgent : MonoBehaviour
         _tcpConnectionManager.agents.Add(this);
         _scoreManager = GetComponent<ScoreManager>();
         _checkpointCounter = GetComponent<CheckpointCounter>();
+
+        if(PlayerPrefs.HasKey("maxSteps"))
+        {
+            _maxSteps = PlayerPrefs.GetInt("maxSteps");
+        }
     }
 
     private void Start()

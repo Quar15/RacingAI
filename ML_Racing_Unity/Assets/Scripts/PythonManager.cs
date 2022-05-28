@@ -6,38 +6,45 @@ using System;
 public class PythonManager : MonoBehaviour
 {
     [SerializeField] private string _pathToExe;
-    
+
     public void StartPythonExec()
     {
-        string savePath = Application.dataPath + "/saves/";
+        // By default combine will ignore empty strings
+        string savePath = System.IO.Path.Combine(
+            System.IO.Path.GetFullPath(Application.dataPath),
+            "saves",
+            PlayerPrefs.GetString("loadPath")
+        );
+
         // Default args
         string pythonArgs = ("-s " + savePath);
+
         // If load exists
-        if(PlayerPrefs.HasKey("loadPath"))
+        if (PlayerPrefs.HasKey("loadPath"))
         {
             // Save path ./saves/[loadPath]
-            savePath += PlayerPrefs.GetString("loadPath");
-            pythonArgs = ("-s " + savePath);
             // Check if path exists
-            if(System.IO.Directory.Exists(savePath))
+            if (System.IO.Directory.Exists(savePath))
             {
                 // Find latest file
-                string[] fileEntries = System.IO.Directory.GetFiles(savePath);
-                if(fileEntries.Length - System.IO.Directory.GetDirectories(savePath).Length > 0)
+                string latestFile = "";
+                int latestGen = -1;
+                // Save filename structure gen<number>.ntp
+                foreach (string fileEntry in System.IO.Directory.GetFiles(savePath, "*.ntp"))
                 {
-                    string latestFile = savePath + "gen0.ntp";
-
-                    foreach(string fileName in fileEntries)
+                    // get only the number part
+                    int currGen = Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(fileEntry).Substring(3));
+                    if (currGen > latestGen)
                     {
-                        if(fileName.Substring(fileName.Length-4, 4) == "meta" || fileName.Substring(fileName.Length-3, 3) != "ntp")
-                            continue;
-                        
-                        if(Int32.Parse(latestFile.Substring(savePath.Length + 3, latestFile.Length - savePath.Length - 7)) < Int32.Parse(fileName.Substring(savePath.Length + 3, fileName.Length - savePath.Length - 7)))
-                            latestFile = fileName;
+                        latestFile = fileEntry;
+                        latestGen = currGen;
                     }
-                    // Add latest file path to args
+                }
+                if (latestGen > -1)
+                {
                     pythonArgs += (" -l " + latestFile);
                 }
+
             }
         }
 

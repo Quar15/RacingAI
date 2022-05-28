@@ -146,9 +146,10 @@ class Manager:
                 MUTATION_RATE, PERTURBING_RATE, INTENSE_CROSS_RATE, self.fitness, 2
             )
             self.current_gen += 1
-            print(
-                f"@INFO: Generation {self.pool.generation - 1} best score: {self.pool.best_score}"
-            )
+            if self.pool.best_score != -1000:
+                print(
+                    f"@INFO: Generation {self.pool.generation - 1} best score: {self.pool.best_score}"
+                )
 
         return self.handle_presentation(message)
 

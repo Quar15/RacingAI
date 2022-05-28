@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "nn"
-version = "0.1.0"
+version = "0.0.1-alpha.2"
 description = ""
 exclude = ["examples/*"]
 authors = [
-    "Mikołaj Rosowski <m.rosowski1@wp.pl>",
-    "Kacper Janas <test@test.test>",
+  "Mikołaj Rosowski <m.rosowski1@wp.pl>",
+  "Kacper Janas <test@test.test>",
 ]
 
 [tool.poetry.dependencies]

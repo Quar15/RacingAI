@@ -1,7 +1,6 @@
 from copy import deepcopy
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from os import PathLike
-import struct
 from typing import Optional
 from pathlib import Path
 import jsonpickle
@@ -48,6 +47,9 @@ class NetworkPool:
                     layer.randomize()
 
                 self.networks.append(NeuralNetwork(cp))
+
+        if self.best_network is None:
+            self.best_network = np.random.choice(self.networks)
 
     def forward(self, index: int, inputs: np.ndarray) -> np.ndarray:
         return self.networks[index].forward(inputs)

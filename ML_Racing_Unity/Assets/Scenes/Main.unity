@@ -275,6 +275,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1337648975245611570, guid: 51be3d63396ba85459040c56f5c225f8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1337648975702354116, guid: 51be3d63396ba85459040c56f5c225f8, type: 3}
       propertyPath: m_Name
       value: Track03
@@ -322,6 +326,14 @@ PrefabInstance:
     - target: {fileID: 1337648975702354117, guid: 51be3d63396ba85459040c56f5c225f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471167940723516655, guid: 51be3d63396ba85459040c56f5c225f8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471167941337912427, guid: 51be3d63396ba85459040c56f5c225f8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2371187889678187480, guid: 51be3d63396ba85459040c56f5c225f8, type: 3}
       propertyPath: _carStats
@@ -632,9 +644,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3208461778908857831, guid: ff712a263d5c3654ab711cc8d23cee06, type: 3}
+      propertyPath: _presentationMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3208461779437157640, guid: ff712a263d5c3654ab711cc8d23cee06, type: 3}
       propertyPath: m_Name
-      value: Managers_1
+      value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 3208461779437157643, guid: ff712a263d5c3654ab711cc8d23cee06, type: 3}
       propertyPath: m_RootOrder

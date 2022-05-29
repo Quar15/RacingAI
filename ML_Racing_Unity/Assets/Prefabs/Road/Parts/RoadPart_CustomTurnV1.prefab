@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3999778803869691522}
   - component: {fileID: 3999778803869691523}
+  - component: {fileID: 8572377235116899696}
+  - component: {fileID: 5549991556851414510}
   m_Layer: 0
   m_Name: RoadPart_CustomTurnV1
   m_TagString: Untagged
@@ -82,3 +84,69 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &8572377235116899696
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999778803869691548}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -3.1368196, y: 1.0867081}
+  - {x: -2.8336143, y: 1.1075517}
+  - {x: -2.5236082, y: 1.1679937}
+  - {x: -2.2121239, y: 1.234105}
+  - {x: -1.8773022, y: 1.3579661}
+  - {x: -1.3238649, y: 1.6869737}
+  - {x: -1.0278978, y: 1.9186958}
+  - {x: -0.82387257, y: 2.1050963}
+  - {x: -0.676038, y: 2.306408}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!68 &5549991556851414510
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999778803869691548}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -3.1221044, y: -2.3447113}
+  - {x: -2.6360312, y: -2.3277843}
+  - {x: -2.3135452, y: -2.2883985}
+  - {x: -2.0333672, y: -2.247046}
+  - {x: -1.7102385, y: -2.1739287}
+  - {x: -1.4356923, y: -2.1113467}
+  - {x: -1.0907226, y: -2.009328}
+  - {x: -0.7995868, y: -1.9137638}
+  - {x: -0.5003972, y: -1.7783401}
+  - {x: -0.21449375, y: -1.643959}
+  - {x: 0.109509945, y: -1.4511954}
+  - {x: 0.6603956, y: -1.1277951}
+  - {x: 1.1821871, y: -0.7062806}
+  - {x: 1.402544, y: -0.514678}
+  - {x: 1.8366623, y: -0.06744063}
+  - {x: 2.2368822, y: 0.4180194}
+  - {x: 2.4743798, y: 0.8068005}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

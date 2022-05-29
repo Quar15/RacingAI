@@ -6,6 +6,7 @@ using System;
 public class PythonManager : MonoBehaviour
 {
     [SerializeField] private string _pathToExe;
+    [SerializeField] private bool _presentationMode;
 
     public void StartPythonExec()
     {
@@ -46,6 +47,11 @@ public class PythonManager : MonoBehaviour
                 }
 
             }
+        }
+
+        if(_presentationMode)
+        {
+            pythonArgs += (" -m presentation");
         }
 
         Debug.Log(pythonArgs);

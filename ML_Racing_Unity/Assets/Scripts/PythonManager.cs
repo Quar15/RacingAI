@@ -11,15 +11,25 @@ public class PythonManager : MonoBehaviour
 
     public void StartPythonExec()
     {
+        string fullDataPath = Application.dataPath;
+
+        if(!Application.isEditor)
+        {
+            _pathToExe = System.IO.Path.Combine(
+                fullDataPath,
+                "pyserve.exe"
+            );
+        }
+
         // By default combine will ignore empty strings
         string savePath = System.IO.Path.Combine(
-            System.IO.Path.GetFullPath(Application.dataPath),
+            fullDataPath,
             "saves",
             PlayerPrefs.GetString("loadPath")
         );
 
         // Default args
-        string pythonArgs = ("-s " + savePath);
+        string pythonArgs = (" -s " + savePath);
 
         // If load exists
         if (PlayerPrefs.HasKey("loadPath"))

@@ -27,6 +27,6 @@ public class CarStatsUI : MonoBehaviour
         if(score > _bestScore)
             _bestScore = score;
 
-        scoreText.text = $"Gen: {gen}\nBestScore: {_bestScore}\nBest Checkpoints: {_bestCheckpoints}";
+        scoreText.text = $"Gen: {gen}\nBest Score: {_bestScore}\nBest Checkpoints: {_bestCheckpoints}";
     }
 }

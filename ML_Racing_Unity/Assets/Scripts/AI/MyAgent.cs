@@ -124,12 +124,11 @@ public class MyAgent : MonoBehaviour
 
         // Debug.Log($"Spawn Rotation: {_spawnTransform.rotation.eulerAngles} | Car Rotation: {transform.rotation.eulerAngles}");
 
+        UpdateCarStats(); 
         _scoreManager.ResetPoints();
         _checkpointCounter.ResetCheckpoints();
 
         _steps = 0;
-        generation++;
-
-        UpdateCarStats();        
+        generation++;              
     }
 }

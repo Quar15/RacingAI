@@ -7,6 +7,7 @@ public class PythonManager : MonoBehaviour
 {
     [SerializeField] private string _pathToExe;
     [SerializeField] private bool _presentationMode;
+    public System.Diagnostics.Process _process;
 
     public void StartPythonExec()
     {
@@ -56,12 +57,36 @@ public class PythonManager : MonoBehaviour
 
         Debug.Log(pythonArgs);
 
-        System.Diagnostics.Process process = new System.Diagnostics.Process();
+        _process = new System.Diagnostics.Process();
 
-        process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-        process.StartInfo.FileName = _pathToExe;
-        process.StartInfo.Arguments = pythonArgs;
+        _process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+        _process.StartInfo.FileName = _pathToExe;
+        _process.StartInfo.Arguments = pythonArgs;
 
-        process.Start();
+        _process.Start();
+    }
+
+    public void KillPythonProcess()
+    {
+        Debug.Log(_process.ProcessName);
+
+        System.Diagnostics.Process[] processes = System.Diagnostics.Process.GetProcesses();
+        foreach (var p in processes)
+        {
+            if(p.ProcessName.StartsWith("pyserve", StringComparison.InvariantCulture))
+            {
+                p.Kill();
+                p.WaitForExit();
+                p.Dispose();
+            }
+        }
+
+        
+        Debug.Log("@INFO: Python process killed");
+    }
+
+    private void OnApplicationQuit()
+    {
+        KillPythonProcess();
     }
 }

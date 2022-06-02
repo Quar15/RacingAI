@@ -83,8 +83,9 @@ public class MenuButtons : MonoBehaviour
     public void SetLoadPath()
     {
         string pathText = _learnOptionsRelativePathInput.text;
-        if(pathText.Length > 0 && pathText.Substring(pathText.Length-1, 1) != "/")
-            pathText += "/";
+        if(pathText.Length > 0 && !pathText.EndsWith(@"\"))
+            pathText += @"\";
+        
         PlayerPrefs.SetString("loadPath", pathText);
     }
 

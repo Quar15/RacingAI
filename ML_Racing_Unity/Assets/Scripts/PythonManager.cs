@@ -28,6 +28,8 @@ public class PythonManager : MonoBehaviour
             PlayerPrefs.GetString("loadPath")
         );
 
+        savePath = '"' + savePath + '"';
+
         // Default args
         string pythonArgs = (" -s " + savePath);
 
@@ -54,6 +56,7 @@ public class PythonManager : MonoBehaviour
                 }
                 if (latestGen > -1)
                 {
+                    latestFile = '"' + latestFile + '"';
                     pythonArgs += (" -l " + latestFile);
                 }
 

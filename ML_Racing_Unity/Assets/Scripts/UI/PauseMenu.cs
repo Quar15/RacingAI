@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField] private TCPConnection _tcpConnection;
     [SerializeField] private PythonManager _pythonManager;
     private RectTransform rTransform;
 
@@ -35,7 +36,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitToMenu()
     {
-        _pythonManager.KillPythonProcess();
+        _tcpConnection.SendShutdown();
+        _pythonManager.AwaitShutdown();
         SceneManager.LoadScene("Menu");
     }
 }

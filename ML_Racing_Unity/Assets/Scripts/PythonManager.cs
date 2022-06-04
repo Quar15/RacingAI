@@ -79,27 +79,17 @@ public class PythonManager : MonoBehaviour
         _process.Start();
     }
 
-    public void KillPythonProcess()
+    public void AwaitShutdown()
     {
         Debug.Log(_process.ProcessName);
 
-        System.Diagnostics.Process[] processes = System.Diagnostics.Process.GetProcesses();
-        foreach (var p in processes)
-        {
-            if(p.ProcessName.StartsWith("pyserve", StringComparison.InvariantCulture))
-            {
-                p.Kill();
-                p.WaitForExit();
-                p.Dispose();
-            }
-        }
-
+        _process.WaitForExit();
         
         Debug.Log("@INFO: Python process killed");
     }
 
     private void OnApplicationQuit()
     {
-        KillPythonProcess();
+        AwaitShutdown();
     }
 }

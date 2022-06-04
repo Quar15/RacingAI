@@ -120,10 +120,10 @@ class Manager:
         print(f"@INFO: Setting mode to {mode}")
         self.mode = mode
 
-    def checkpoint(self) -> bool:
+    def checkpoint(self, *, interrupted=False):
         """Creates a checkpoint"""
         self.pool.to_file(
-            f"gen{self.pool.generation}",
+            f"gen{self.pool.generation if not interrupted else min(self.pool.generation - 1, 0)}",
             directory=self.save_directory,
             create_parents=True,
         )
@@ -197,6 +197,11 @@ class Manager:
                 case Mode.PRESENTATION:
                     print("@INFO: Presentation mode start")
             listen_for_unity(self.socket, self.mode_switch)
+
+            print("@INFO: Received shutdown request")
+
+            self.checkpoint(interrupted=True)
+
         except KeyboardInterrupt:
             print("@INFO: Received Ctrl-C")
 
@@ -206,6 +211,14 @@ class Manager:
 
             print("@DEBUG: Shutting down")
             exit(0)
+
+        # Hopefully never reached
+        except Exception as e:
+            from time import sleep
+
+            print(f"Unhandled exception {type(e)}: {e}")
+            sleep(20)
+            exit(-1)
 
 
 if __name__ == "__main__":

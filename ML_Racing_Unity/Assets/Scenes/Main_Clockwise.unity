@@ -780,6 +780,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3208461778908857831, guid: ff712a263d5c3654ab711cc8d23cee06, type: 3}
+      propertyPath: _pathToExe
+      value: C://Users//Quar//Downloads//pyserve-windows//pyserve.exe
+      objectReference: {fileID: 0}
     - target: {fileID: 3208461779437157640, guid: ff712a263d5c3654ab711cc8d23cee06, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -929,6 +933,10 @@ PrefabInstance:
       propertyPath: _pythonManager
       value: 
       objectReference: {fileID: 1148361233}
+    - target: {fileID: 7528079416109701126, guid: 4fb240f77f22b91488b5cc9a27fdc54a, type: 3}
+      propertyPath: _tcpConnection
+      value: 
+      objectReference: {fileID: 1577272717}
     - target: {fileID: 7528079416109701146, guid: 4fb240f77f22b91488b5cc9a27fdc54a, type: 3}
       propertyPath: m_Name
       value: PauseMenuPanel

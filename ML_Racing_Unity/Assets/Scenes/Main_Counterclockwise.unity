@@ -363,6 +363,10 @@ PrefabInstance:
       propertyPath: _pythonManager
       value: 
       objectReference: {fileID: 892510390}
+    - target: {fileID: 7528079416109701126, guid: 4fb240f77f22b91488b5cc9a27fdc54a, type: 3}
+      propertyPath: _tcpConnection
+      value: 
+      objectReference: {fileID: 892510389}
     - target: {fileID: 7528079416109701146, guid: 4fb240f77f22b91488b5cc9a27fdc54a, type: 3}
       propertyPath: m_Name
       value: PauseMenuPanel

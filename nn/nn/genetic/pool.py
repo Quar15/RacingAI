@@ -136,11 +136,7 @@ class NetworkPool:
     ):
         directory = Path.cwd() if directory is None else Path(directory)
 
-        if not directory.exists():
-            directory.mkdir(parents=create_parents)
-
-        elif not directory.is_dir():
-            raise NotADirectoryError
+        directory.mkdir(parents=create_parents, exist_ok=True)
 
         target = directory.joinpath(filename + ".ntp")
         mode = "w" if overwrite else "x"

@@ -134,6 +134,27 @@ public class TCPConnection : MonoBehaviour
         }
     }
 
+    public void SendShutdown()
+    {
+        try
+        {
+            // Get a stream object for writing.		
+            NetworkStream stream = lClient.GetStream();
+            if (stream.CanWrite)
+            {
+                // Convert string message to byte array.
+                byte[] clientMsgAsByteArray = Encoding.UTF8.GetBytes("stop");
+                // Write byte array to socketConnection stream.
+                stream.Write(clientMsgAsByteArray, 0, clientMsgAsByteArray.Length);
+                Debug.Log("Client sent his message - should be received by server");
+            }
+        }
+        catch (SocketException socketException)
+        {
+            Debug.Log("Socket exception: " + socketException);
+        }
+    }
+
     private void ProcessData(string msg)
     {
         string[] data = msg.Split('#')[1].Split(' ');

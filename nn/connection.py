@@ -52,8 +52,15 @@ def listen_for_unity(s, handler: Callable[[str], Any]):
             continue
 
         if new_msg:
-            msg_len = int(msg[:HEADER_SIZE])
-            new_msg = False
+            try:
+                msg_len = int(msg[:HEADER_SIZE])
+                new_msg = False
+
+            # Catch possible shutdown message
+            except ValueError:
+                if msg.decode("utf-8") == "stop":
+                    return
+                raise
 
         full_msg += msg.decode("utf-8")
 

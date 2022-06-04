@@ -13,7 +13,9 @@ public class CarStatsUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateText(0, 0, 0);
+        _bestScore = -1000;
+        _bestCheckpoints = -1;
+        UpdateText(0, 0, -100);
     }
 
     public void UpdateText(int gen, int checkpoints, float score)

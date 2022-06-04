@@ -117,7 +117,7 @@ public class TCPConnection : MonoBehaviour
 
         try
         {
-            // Get a stream object for writing.		
+            // Get a stream object for writing.
             NetworkStream stream = lClient.GetStream(); 			
             if (stream.CanWrite)
             {	
@@ -138,20 +138,33 @@ public class TCPConnection : MonoBehaviour
     {
         try
         {
-            // Get a stream object for writing.		
-            NetworkStream stream = lClient.GetStream();
-            if (stream.CanWrite)
+            try
             {
-                // Convert string message to byte array.
-                byte[] clientMsgAsByteArray = Encoding.UTF8.GetBytes("stop");
-                // Write byte array to socketConnection stream.
-                stream.Write(clientMsgAsByteArray, 0, clientMsgAsByteArray.Length);
-                Debug.Log("Client sent his message - should be received by server");
+                if(lClient == null)
+                    return;
+                
+                // Get a stream object for writing.
+                NetworkStream stream = lClient.GetStream();
+                if (stream.CanWrite)
+                {
+                    // Convert string message to byte array.
+                    byte[] clientMsgAsByteArray = Encoding.UTF8.GetBytes("stop");
+                    // Write byte array to socketConnection stream.
+                    stream.Write(clientMsgAsByteArray, 0, clientMsgAsByteArray.Length);
+                    Debug.Log("Client sent his message - should be received by server");
+                }            
             }
+            catch(ObjectDisposedException e)
+            {
+                Debug.LogWarning("TCP Client already disposed. " + e);
+                return;
+            }
+            
+            CancelInvoke();
         }
         catch (SocketException socketException)
         {
-            Debug.Log("Socket exception: " + socketException);
+            Debug.LogWarning("Socket exception: " + socketException);
         }
     }
 
@@ -186,6 +199,9 @@ public class TCPConnection : MonoBehaviour
 
     private void ShutdownConnection()
     {
+        if(lClient == null)
+            return;
+        
         if(receiveThread != null)
             receiveThread.Abort();
 

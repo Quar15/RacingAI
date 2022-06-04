@@ -28,7 +28,8 @@ public class PythonManager : MonoBehaviour
             PlayerPrefs.GetString("loadPath")
         );
 
-        savePath = '"' + savePath + '"';
+        savePath = savePath.Replace(@"\", "/");
+        savePath = '\"' + savePath + '\"';
 
         // Default args
         string pythonArgs = (" -s " + savePath);
@@ -56,6 +57,7 @@ public class PythonManager : MonoBehaviour
                 }
                 if (latestGen > -1)
                 {
+                    latestFile = latestFile.Replace(@"\", "/");
                     latestFile = '"' + latestFile + '"';
                     pythonArgs += (" -l " + latestFile);
                 }
@@ -81,6 +83,9 @@ public class PythonManager : MonoBehaviour
 
     public void AwaitShutdown()
     {
+        if(_process.HasExited)
+            return;
+        
         Debug.Log(_process.ProcessName);
 
         _process.WaitForExit();

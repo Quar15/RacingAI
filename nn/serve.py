@@ -148,7 +148,7 @@ class Manager:
             self.current_gen += 1
             if self.pool.best_score != -1000:
                 print(
-                    f"@INFO: Generation {self.pool.generation - 1} best score: {self.pool.best_score}"
+                    f"@INFO: Generation {self.pool.generation - 2} best score: {self.pool.best_score}"
                 )
 
         return self.handle_presentation(message)
@@ -191,6 +191,11 @@ class Manager:
     def start_manager(self):
         """Main manager loop"""
         try:
+            match self.mode:
+                case Mode.LEARNING:
+                    print("@INFO: Learning mode start")
+                case Mode.PRESENTATION:
+                    print("@INFO: Presentation mode start")
             listen_for_unity(self.socket, self.mode_switch)
         except KeyboardInterrupt:
             print("@INFO: Received Ctrl-C")

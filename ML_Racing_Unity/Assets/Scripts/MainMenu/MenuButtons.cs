@@ -14,6 +14,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _activePathText;
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _creditsPanel;
+    [SerializeField] private Animation _menuAnim;
     
     private void Start() 
     {
@@ -23,6 +24,8 @@ public class MenuButtons : MonoBehaviour
         
         if(PlayerPrefs.HasKey("maxSteps"))
             _learnOptionsMaxStepsInput.text = PlayerPrefs.GetInt("maxSteps").ToString();
+        
+        _menuAnim.Play("MenuFadeIn");
     }
 
 
@@ -38,11 +41,13 @@ public class MenuButtons : MonoBehaviour
 
     public void OpenLearnPanel()
     {
-        _learnPanel.SetActive(true);
+        _menuAnim.PlayQueued("LearnFadeIn", QueueMode.CompleteOthers);
+        //_learnPanel.SetActive(true);
     }
 
     public void CloseLearnPanel()
     {
+        _menuAnim.Play("MenuFadeIn");
         _learnPanel.SetActive(false);
     }
 
@@ -94,6 +99,7 @@ public class MenuButtons : MonoBehaviour
 
     public void CloseCredits()
     {
+        _menuAnim.Play("MenuFadeIn");
         _creditsPanel.SetActive(false);
     }
 
@@ -104,6 +110,7 @@ public class MenuButtons : MonoBehaviour
 
     public void CloseOptions()
     {
+        _menuAnim.Play("MenuFadeIn");
         _optionsPanel.SetActive(false);
     }
 

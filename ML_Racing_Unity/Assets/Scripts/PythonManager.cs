@@ -12,6 +12,7 @@ public class PythonManager : MonoBehaviour
     public void StartPythonExec()
     {
         string fullDataPath = Application.dataPath;
+        string pythonArgs = "";
 
         if(!Application.isEditor)
         {
@@ -28,19 +29,16 @@ public class PythonManager : MonoBehaviour
             PlayerPrefs.GetString("loadPath")
         );
 
-        savePath = savePath.Replace(@"\", "/");
-        savePath = '\"' + savePath + '\"';
-
-        // Default args
-        string pythonArgs = (" -s " + savePath);
 
         // If load exists
         if (PlayerPrefs.HasKey("loadPath"))
         {
+            Debug.Log("Load path detected");
             // Save path ./saves/[loadPath]
             // Check if path exists
             if (System.IO.Directory.Exists(savePath))
             {
+                Debug.Log("Save path detected");
                 // Find latest file
                 string latestFile = "";
                 int latestGen = -1;
@@ -65,10 +63,18 @@ public class PythonManager : MonoBehaviour
             }
         }
 
+        savePath = savePath.Replace(@"\", "/");
+        savePath = '\"' + savePath + '\"';
+
+        // Default args
+        pythonArgs += (" -s " + savePath);
+
         if(_presentationMode)
         {
             pythonArgs += (" -m presentation");
         }
+
+
 
         Debug.Log(pythonArgs);
 
